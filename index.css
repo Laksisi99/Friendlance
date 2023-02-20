@@ -1,0 +1,32 @@
+/*Login*/
+
+#bar
+{
+    height: 150px; 
+    background-color: green; 
+    color: greenyellow; 
+    font-size: 40px;
+    padding: 5px;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
+}
+
+#description
+{
+    font-size: 20px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    padding: 5px;
+}
+
+#signup-button{
+    font-size: 20px;
+    background-color: black;
+    width: 100px;
+    border-radius: 5px;
+    text-align: center;
+    padding: 5px;
+    float: right;
+}
+
+body{
+    background-color: aqua;
+}
