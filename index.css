@@ -1,4 +1,4 @@
-/*Login*/
+/*Login & signup*/
 
 #bar
 {
@@ -60,6 +60,145 @@
     border: none;
 }
 
+/*Profile*/
+#profile-bar{
+    height: 80px;
+    background-color: green;
+    color: greenyellow;
+}
+
+#profile-topic{
+    width: 800px;
+    margin: auto;
+    font-size: 30px;
+}
+
+#search-box{
+    width: 400px;
+    height: 20px;
+    border-radius: 5px;
+    border: none;
+    padding: 5px;
+    font-size: 15px;
+}
+
+#profile-cover{
+   width: 800px; 
+   margin: auto;
+   min-height: 400px;
+}
+
+#pro-pic-bg{
+    background-color: gray;
+    text-align: center;
+    color: greenyellow;
+}
+
+#pro-pic{
+    width: 150px;
+    border-radius: 50%;
+    border: solid 2px yellow;
+}
+
+#menu-buttons{
+    width: 100px;
+    display: inline-block;
+    margin: 2px;
+}
+
+#profile-name{
+    font-size: 30px;
+}
+
+#profile-display{
+    display: flex;
+}
+
+#pro-dis1{
+    /* background-color: yellow; */
+    min-height: 400px;
+    /* flex: 1; */
+    /* color: white; */
+    /* font-size: 85px; */
+}
+
+#pro-dis2{
+    /* background-color: yellowgreen; */
+    min-height: 400px;
+    flex: 2.5;
+    /* margin-left: 500px; */
+    padding: 20px;
+    padding-right: 0px;
+}
+
+#friend-profile{
+    width: 100px;
+    float: left;
+    margin: 5px;
+}
+
+#friends-bar{
+    background-color: yellow;
+    min-height: 400px;
+    margin-top: 20px;
+    color: black;
+    padding: 10px;
+    font-size: 20px;
+    text-align: center;
+}
+
+#friend{
+    clear: both;
+    font-size: 15px;
+    font-weight: bold;
+    color: green;
+}
+
+#posts-area{
+    border: solid thin yellow;
+    padding: 15px;
+}
+
+#post-button
+{
+    float: right;
+    background-color: black;
+    color: yellow;
+    font-weight: bold;
+    padding: 5px;
+    border-radius: 5px;
+    width: 200px;
+}
+
+#post-bar{
+    margin-top: 20px;
+    background-color: wheat;
+    padding: 10px;
+}
+
+#post{
+    padding: 5px;
+    font-size: 15px;
+    display: flex;
+    margin-bottom: 20px;
+}
+
+#post-owner{
+    font-weight: bold;
+    color: darkslategray;
+}
+
+textarea{
+    width: 100%;
+    border: yellow;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 15px;
+    height: 50px;
+}
+
+
 body{
     background-color: aqua;
+    font-family: 'Times New Roman', Times, serif;
 }
+
