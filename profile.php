@@ -1,3 +1,41 @@
+<?php
+
+    session_start();
+
+    
+
+    include("classes/connect.php");
+    include("classes/login.php");
+
+    //checked if user is logged in
+
+    if(isset($_SESSION['friendlance_userid']) && is_numeric($_SESSION['friendlance_userid']))
+    {
+        $id = $_SESSION['friendlance_userid'];
+        $login = new Login();
+
+        $result = $login->check_login($id);
+
+        if($result)
+        {
+
+            //retrieve user data;
+            echo "Everything is fine!";
+        }else
+        {
+            header("Location: login.php");
+            die;
+        }
+    }else
+    {
+        header("Location: login.php");
+        die;
+    }
+
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,7 +43,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="index.css" rel="stylesheet"/>
-    <title>Timeline | FRINDLANCE🤞</title>
+    <title>Profile | FRIENDLANCE🤞</title>
 </head>
 
 <body>
@@ -14,7 +52,7 @@
     <!--profile top bar-->
     <div id="profile-bar">
         <div id="profile-topic">
-            FRINDLANCE🤞 &nbsp &nbsp<input type="text" id="search-box" placeholder="🔎Search for Friends">
+            FRIENDLANCE🤞 &nbsp &nbsp<input type="text" id="search-box" placeholder="🔎Search for Friends">
             <img src="images/friends.PNG" style="width: 65px; float: right;">
         </div>
     </div>
@@ -22,7 +60,20 @@
     <!--profile cover page-->
     <div id="profile-cover">
 
-        
+        <div id="pro-pic-bg">
+
+            <img src="images/profile.PNG" style="width: 100%;">
+            <img id="pro-pic" src="images/friends.PNG">
+            <br>
+                <div id="profile-name">Laksisi Gunaratne</div>
+            <br>
+            <div id="menu-buttons">Timeline</div>
+            <div id="menu-buttons">About</div>
+            <div id="menu-buttons">Friends</div>
+            <div id="menu-buttons">Photos</div>
+            <div id="menu-buttons">Settings</div>
+                
+        </div>
 
         <!--below cover area-->
 
@@ -33,8 +84,31 @@
 
                 <div id="friends-bar">
 
-                    <img id="pro-pic" src="images/friends.PNG"><br>
-                    Laksisi Gunaratne
+                    Friends <br>
+
+                    <div id="friend">
+
+                        <img id="friend-profile" src="images/user1.jpg">
+                        <br>
+                        Warsha Fernando
+
+                    </div>
+
+                    <div id="friend">
+
+                        <img id="friend-profile" src="images/user2.jpg">
+                        <br>
+                        Kethaki Karunachandra
+
+                    </div>
+
+                    <div id="friend">
+
+                        <img id="friend-profile" src="images/user3.jpg">
+                        <br>
+                        Dunuke Rathnayake
+
+                    </div>
 
                 </div>
             
