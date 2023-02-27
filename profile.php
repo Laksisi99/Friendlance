@@ -1,11 +1,11 @@
 <?php
 
     session_start();
-
     
-
+    print_r($_SESSION);
     include("classes/connect.php");
     include("classes/login.php");
+    include("classes/user.php");
 
     //checked if user is logged in
 
@@ -20,7 +20,16 @@
         {
 
             //retrieve user data;
-            echo "Everything is fine!";
+            $user = new User();
+            $user_data = $user->get_data($id);
+
+            if(!$user_data)
+            {
+                header("Location: login.php");
+                die;
+            }
+            
+
         }else
         {
             header("Location: login.php");
@@ -53,7 +62,13 @@
     <div id="profile-bar">
         <div id="profile-topic">
             FRIENDLANCE🤞 &nbsp &nbsp<input type="text" id="search-box" placeholder="🔎Search for Friends">
-            <img src="images/friends.PNG" style="width: 65px; float: right;">
+            
+            <img src="images/friends.PNG" style="width: 65px; float: right; ">
+
+            <a href="logout.php">
+                <span style="font-size:15px;float:right;margin-right:10px;margin-top:15px;color:whitesmoke;">Logout</span>
+            </a>
+
         </div>
     </div>
 
@@ -65,7 +80,7 @@
             <img src="images/profile.PNG" style="width: 100%;">
             <img id="pro-pic" src="images/friends.PNG">
             <br>
-                <div id="profile-name">Laksisi Gunaratne</div>
+                <div id="profile-name"><?php echo $user_data['first_name'] . " " . $user_data['last_name']?></div>
             <br>
             <div id="menu-buttons">Timeline</div>
             <div id="menu-buttons">About</div>
