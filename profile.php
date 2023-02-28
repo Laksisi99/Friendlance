@@ -50,8 +50,28 @@
         $id = $_SESSION['friendlance_userid'];
         $result = $post->create_post($id, $_POST);
         
+        if($result == "")
+        {
+            header("Location: profile.php");
+            die;
+        }else
+        {
+            echo "<div style='text-align:center;font: size 12px;color:white;background-color:grey;'>";
+            echo "<br>The following errors occured:<br><br>";
+            echo $result;
+            echo "</div>";
+        }
 
     }
+
+    //collect posts
+
+    $post = new Post();
+    $id = $_SESSION['friendlance_userid'];
+
+    $posts = $post->get_posts($id);
+        
+
 
 ?>
 
@@ -151,63 +171,26 @@
                 </div>
 
 
-            <!--posts-->
-            <div id="post-bar">
+                <!--posts-->
 
-                 <!--post1-->
-                <div id="post">
+                <div id="post-bar">
 
-                    <div>
-                        <img src="images/user1.jpg" style="width:75px; margin: 5px;">
-                    </div>
-                    <div>
-                        <div id="post-owner">Warsha's Thought</div>
-                        Hi wanted to make platform to make get together our school mates from various fields.
-                        Hi wanted to make platform to make get together our school mates from various fields.
-                        Hi wanted to make platform to make get together our school mates from various fields.
-                        Hi wanted to make platform to make get together our school mates from various fields.
-                        Hi wanted to make platform to make get together our school mates from various fields.
-                        <br/><br/>
-                        <a href="">Link</a> . <a href="">Comment</a> . <span style="color: darkgreen;">February 21 2023</span>
-                    </div>
+                    <?php
 
-                </div>
+            
+                        if($posts)
+                        {
+                            foreach($posts as $ROW)
+                            {
+                                $user = new User();
+                                $ROW_USER = $user->get_user($ROW['userid']);
+                                
+                                include('post.php');
+                            }
+                        }   
+                        
 
-                 <!--post2-->
-                 <div id="post">
-
-                    <div>
-                        <img src="images/user2.jpg" style="width:75px; margin: 5px;">
-                    </div>
-                    <div>
-                        <div id="post-owner">Kethaki's Thought</div>
-                        Hi wanted to make platform to make get together our school mates from various fields.
-                        Hi wanted to make platform to make get together our school mates from various fields.
-                        Hi wanted to make platform to make get together our school mates from various fields.
-                        Hi wanted to make platform to make get together our school mates from various fields.
-                        Hi wanted to make platform to make get together our school mates from various fields.
-                        <br/><br/>
-                        <a href="">Link</a> . <a href="">Comment</a> . <span style="color: darkgreen;">February 21 2023</span>
-                    </div>
-
-                </div>
-
-                 <!--post3-->
-                 <div id="post">
-
-                    <div>
-                        <img src="images/user3.jpg" style="width:75px; margin: 5px;">
-                    </div>
-                    <div>
-                        <div id="post-owner">Dunuke's Thought</div>
-                        Hi wanted to make platform to make get together our school mates from various fields.
-                        Hi wanted to make platform to make get together our school mates from various fields.
-                        Hi wanted to make platform to make get together our school mates from various fields.
-                        Hi wanted to make platform to make get together our school mates from various fields.
-                        Hi wanted to make platform to make get together our school mates from various fields.
-                        <br/><br/>
-                        <a href="">Link</a> . <a href="">Comment</a> . <span style="color: darkgreen;">February 21 2023</span>
-                    </div>
+                    ?>
 
                 </div>
 

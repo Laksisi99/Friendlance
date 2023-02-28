@@ -13,11 +13,7 @@ class Post
 
             $postid = $this->create_postid();
             $post = addslashes($data['post']);
-            // $image = addslashes($data['image']);
-            // $comments = ($data['comments']);
-            // $likes = ($data['likes']);
-            // $has_image = ($data['has_image']);
-
+            
             $query = "insert into posts (postid,userid,post) values ('$postid','$userid','$post')";
 
             $DB = new Database();
@@ -29,6 +25,24 @@ class Post
         }
 
         return $this->error;
+
+    }
+
+    public function get_posts($id)
+    {
+        
+        $query = "select * from posts where userid = '$id' order by id desc limit 10";
+
+        $DB = new Database();
+        $result = $DB->read($query);
+
+        if($result)
+        {
+            return $result;
+        }else
+        {
+            return false;
+        }
 
     }
 
