@@ -33,13 +33,9 @@
 <body>
     
     <br>
-    <!--profile top bar-->
-    <div id="profile-bar">
-        <div id="profile-topic">
-            FRIENDLANCE🤞 &nbsp &nbsp<input type="text" id="search-box" placeholder="🔎Search for Friends">
-            <img src="images/friends.PNG" style="width: 65px; float: right;">
-        </div>
-    </div>
+    
+    <?php include("header.php"); ?>
+
 
     <!--profile cover page-->
     <div id="profile-cover">
@@ -56,7 +52,7 @@
                 <div id="friends-bar">
 
                     <img id="pro-pic" src="images/friends.PNG"><br>
-                    <div id="profile-name"><?php echo $user_data['first_name'] . " " . $user_data['last_name'];?></div>
+                    <a href="profile.php" style="text-decoration: none;"><div id="profile-name" ><?php echo $user_data['first_name'] . "<br> " . $user_data['last_name'];?></div></a>
 
                 </div>
             
