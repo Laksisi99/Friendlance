@@ -75,7 +75,23 @@
         <div id="pro-pic-bg">
 
             <img src="images/profile.PNG" style="width: 100%;">
-            <img id="pro-pic" src="images/friends.PNG">
+
+            <span style="font-size: 12px;">
+
+                <?php
+
+                    $image = "";
+                    if(file_exists($user_data['profile_image']))
+                    {
+                        $image = $user_data['profile_image'];
+                    }
+
+                ?>
+                <img id="pro-pic" src="<?php echo $image ?>"><br/>
+
+                <a style="text-decoration: none; color:aqua;" href="change_profile_image.php" >Change Image </a>
+            </span>
+
             <br>
                 <div id="profile-name"><?php echo $user_data['first_name'] . " " . $user_data['last_name'];?></div>
             <br>
