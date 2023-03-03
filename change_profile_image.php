@@ -6,6 +6,7 @@
     include("classes/login.php");
     include("classes/user.php");
     include("classes/post.php");
+    include("classes/image.php");
 
 
     $login = new Login();
@@ -27,6 +28,9 @@
 
                     $filename = "uploads/" . $_FILES['file']['name'];
                     move_uploaded_file($_FILES['file']['tmp_name'],  $filename);
+
+                    $image = new Image();
+                    $image->crop_image($filename,$filename,1000,1000);
 
                     if(file_exists($filename))
                     {

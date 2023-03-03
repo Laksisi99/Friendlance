@@ -89,7 +89,9 @@
                 ?>
                 <img id="pro-pic" src="<?php echo $image ?>"><br/>
 
-                <a style="text-decoration: none; color:aqua;" href="change_profile_image.php" >Change Image </a>
+                <a style="text-decoration: none; color:aqua;" href="change_profile_image.php" >Change Profile Image </a> |
+                <a style="text-decoration: none; color:aqua;" href="change_profile_image.php" >Change Cover </a>
+
             </span>
 
             <br>
