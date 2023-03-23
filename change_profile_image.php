@@ -12,6 +12,10 @@
     $login = new Login();
     $user_data = $login->check_login($_SESSION['friendlance_userid']);
 
+    // echo "<pre>";
+    // print_r($_GET);
+    // echo "</pre>";
+
     if($_SERVER['REQUEST_METHOD'] == "POST")
     {
         
@@ -26,16 +30,55 @@
                 {
                     //everything is fine
 
-                    $filename = "uploads/" . $_FILES['file']['name'];
-                    move_uploaded_file($_FILES['file']['tmp_name'],  $filename);
+                    $folder = "uploads/" . $user_data['userid'] . "/";
+
+                    //create folder
+                    if(!file_exists($folder))
+                    {
+                        mkdir($folder, 0777, true);
+                    }
 
                     $image = new Image();
-                    $image->crop_image($filename,$filename,1000,1000);
+
+                    $filename = $folder . $image->generate_filename(15) . ".jpeg";
+                    move_uploaded_file($_FILES['file']['tmp_name'],  $filename);
+
+                    $change = "profile";
+
+                    //check for image cover or
+                        if(isset($_GET['change']))
+                        {
+                            $change = $_GET['change'];
+                        }
+
+                    
+                    
+                    if($change == "profile_cover")
+                    {
+                        if(file_exists($user_data['cover_image']))
+                        {
+                            unlink($user_data['cover_image']);
+                        }
+                        $image->resize_image($filename,$filename,1500,1500);
+                    }else{
+                        if(file_exists($user_data['profile_image']))
+                        {
+                            unlink($user_data['profile_image']);
+                        }
+                        $image->resize_image($filename,$filename,1500,1500);
+                    }
 
                     if(file_exists($filename))
                     {
                         $userid = $user_data['userid'];
-                        $query = "update users set profile_image = '$filename' where userid = $userid limit 1";
+                       
+                        if($change == "profile_cover" )
+                        {
+                            $query = "update users set cover_image = '$filename' where userid = $userid limit 1";
+                        }else
+                        {
+                            $query = "update users set profile_image = '$filename' where userid = $userid limit 1";
+                        }
                         $DB = new Database();
                         $DB->save($query);
 
@@ -114,9 +157,31 @@
                 <form method="post" enctype="multipart/form-data">
                     <div id="posts-area">
 
-                    <input type="file" name="file"><br>
-                    <input id="post-button" type="submit" value="CHANGE PROFILE PICTURE">
-                    <br>
+                        <input type="file" name="file"><br>
+                        <input id="post-button" type="submit" value="CHANGE PROFILE PICTURE">
+                        <br>
+
+                        <div style="text-align: center;">
+                            <br><br>
+
+                            <?php
+
+                                //check for image cover or not
+                                if(isset($_GET['change']) && $_GET['change'] == 'Profile_cover')
+                                {
+                                    $change = "profile_cover";
+                                    echo "<img src='$user_data[cover_image]' style= 'max-width:500px;' >";
+                                }else{
+                                    echo "<img src='$user_data[profile_image]' style= 'max-width:500px;' >";
+                                }
+
+                                
+                                
+
+                            ?>
+
+                        </div>
+
                     </div>
                 </form>
 

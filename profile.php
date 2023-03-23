@@ -6,7 +6,7 @@
     include("classes/login.php");
     include("classes/user.php");
     include("classes/post.php");
-
+    include("classes/image.php");
 
     $login = new Login();
     $user_data = $login->check_login($_SESSION['friendlance_userid']);
@@ -47,6 +47,8 @@
     $id = $_SESSION['friendlance_userid'];
 
     $friends = $user->get_friends($id);
+
+    $image_class = new Image();
         
 
 
@@ -74,23 +76,39 @@
 
         <div id="pro-pic-bg">
 
-            <img src="images/profile.PNG" style="width: 100%;">
+                <?php
+
+                    $image = "images/cover.jpeg";
+                    if(file_exists($user_data['cover_image']))
+                    {
+                        $image = $image_class->get_thumbnail_cover($user_data['cover_image']);
+                    }
+
+                ?>
+
+            <img src="<?php echo $image ?>" style="width: 100%;">
 
             <span style="font-size: 12px;">
 
                 <?php
 
-                    $image = "";
+                    $image = "images/user_male.png";
+
+                    if($user_data['gender'] == "Female")
+                    {
+                        $image = "images/user_female.png";
+                    }
+
                     if(file_exists($user_data['profile_image']))
                     {
-                        $image = $user_data['profile_image'];
+                        $image = $image_class->get_thumbnail_profile($user_data['profile_image']);
                     }
 
                 ?>
                 <img id="pro-pic" src="<?php echo $image ?>"><br/>
 
-                <a style="text-decoration: none; color:aqua;" href="change_profile_image.php" >Change Profile Image </a> |
-                <a style="text-decoration: none; color:aqua;" href="change_profile_image.php" >Change Cover </a>
+                <a style="text-decoration: none; color:aqua;" href="change_profile_image.php?change=profile_picture" >Change Profile Image </a> |
+                <a style="text-decoration: none; color:aqua;" href="change_profile_image.php?change=profile_cover" >Change Cover </a>
 
             </span>
 

@@ -1,5 +1,14 @@
 
 <!--profile top bar-->
+<?php
+
+    $corner_image = "images/user_male.png";
+    if(isset($user_data))
+    {
+        $corner_image = $user_data['profile_image'];
+    }
+?>
+
 <div id="profile-bar">
         <div id="profile-topic">
             
@@ -8,7 +17,7 @@
             &nbsp &nbsp<input type="text" id="search-box" placeholder="🔎Search for Friends">
             
             <a href="profile.php">
-                <img src="images/friends.PNG" style="width: 65px; float: right; ">
+                <img src="<?php echo $corner_image ?>" style="width: 65px; float: right; ">
             </a>
 
             <a href="logout.php">
