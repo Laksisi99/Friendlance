@@ -5,7 +5,8 @@
     $corner_image = "images/user_male.png";
     if(isset($user_data))
     {
-        $corner_image = $user_data['profile_image'];
+        $image_class = new Image();
+        $corner_image = $image_class->get_thumbnail_profile($user_data['profile_image']);
     }
 ?>
 
@@ -17,7 +18,7 @@
             &nbsp &nbsp<input type="text" id="search-box" placeholder="🔎Search for Friends">
             
             <a href="profile.php">
-                <img src="<?php echo $corner_image ?>" style="width: 65px; float: right; ">
+                <img src="<?php echo $corner_image ?>" style="width: 65px; float: right; border-radius: 50%;">
             </a>
 
             <a href="logout.php">

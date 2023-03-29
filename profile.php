@@ -1,12 +1,8 @@
 <?php
 
-    session_start();
     
-    include("classes/connect.php");
-    include("classes/login.php");
-    include("classes/user.php");
-    include("classes/post.php");
-    include("classes/image.php");
+    include("classes/autoload.php");
+
 
     $login = new Login();
     $user_data = $login->check_login($_SESSION['friendlance_userid']);
@@ -18,7 +14,7 @@
 
         $post = new Post();
         $id = $_SESSION['friendlance_userid'];
-        $result = $post->create_post($id, $_POST);
+        $result = $post->create_post($id, $_POST,$_FILES);
         
         if($result == "")
         {
@@ -158,8 +154,9 @@
             <div id="pro-dis2">
 
                 <div id="posts-area">
-                    <form method="post">
+                    <form method="post" enctype="multipart/form-data">
                         <textarea name="post" placeholder="Write Your Thoughts"></textarea>
+                        <input type="file" name="file">
                         <input id="post-button" type="submit" value="SHARE THOUGHTS">
                         <br>
                     </form>

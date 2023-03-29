@@ -71,16 +71,27 @@
                     if(file_exists($filename))
                     {
                         $userid = $user_data['userid'];
+
                        
                         if($change == "profile_cover" )
                         {
                             $query = "update users set cover_image = '$filename' where userid = $userid limit 1";
+                            $_POST['is_cover_image'] = 1;
+
                         }else
                         {
                             $query = "update users set profile_image = '$filename' where userid = $userid limit 1";
+                            $_POST['is_profile_image'] = 1;
+
                         }
+
                         $DB = new Database();
                         $DB->save($query);
+
+                        //create post
+                        $post = new Post();
+                        $post->create_post($userid, $_POST,$filename);
+                        
 
                         header(("Location: profile.php"));
                         die;

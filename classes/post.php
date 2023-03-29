@@ -5,16 +5,69 @@ class Post
 
     private $error = "";
 
-    public function create_post($userid, $data)
+    public function create_post($userid, $data, $files)
     {
 
-        if(!empty($data['post']))
+        if(!empty($data['post']) || !empty($files['file']['name']) || isset($data['is_profile_image']) || isset($data['is_cover_image']))
         {
 
+            $postimage = "";
+            $has_image = 0;
+            $is_cover_image = 0;
+            $is_profile_image = 0;
+
+            if(isset($data['is_profile_image']) || isset($data['is_cover_image']))
+            {
+
+                $postimage = $files;
+                $has_image = 1;
+
+                if(isset($data['is_cover_image']))
+                {
+                    $is_cover_image = 1;
+                }
+
+                if(isset($data['is_profile_image']))
+                {
+                    $is_profile_image = 1;
+                }
+                    
+
+            }else
+            {
+                if(!empty($files['file']['name']))
+                {
+                    
+
+                    $folder = "uploads/" . $userid . "/";
+
+                    //create folder
+                        if(!file_exists($folder))
+                        {
+                            mkdir($folder, 0777, true);
+                        }
+
+                        $image_class = new Image();
+
+                        $postimage = $folder . $image_class->generate_filename(15) . ".jpeg";
+                        move_uploaded_file($_FILES['file']['tmp_name'],  $postimage);
+
+                        $image_class->resize_image($postimage,$postimage,1000,1000);
+
+
+                        $has_image = 1;    
+                }
+        }
+
+            $post = "";
+            if(isset($data['post']))
+            {
+                $post = addslashes($data['post']);
+            }
+
             $postid = $this->create_postid();
-            $post = addslashes($data['post']);
             
-            $query = "insert into posts (postid,userid,post) values ('$postid','$userid','$post')";
+            $query = "insert into posts (postid,userid,post,image,has_image,is_profile_image,is_cover_image) values ('$postid','$userid','$post','$postimage','$has_image','$is_profile_image','$is_cover_image')";
 
             $DB = new Database();
             $DB->save($query);

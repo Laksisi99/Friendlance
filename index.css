@@ -186,6 +186,8 @@
 #post-owner{
     font-weight: bold;
     color: darkslategray;
+    width: 100%;
+    
 }
 
 textarea{
