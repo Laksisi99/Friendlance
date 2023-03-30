@@ -1,5 +1,4 @@
 <?php
-
     
     include("classes/autoload.php");
 
@@ -7,6 +6,20 @@
     $login = new Login();
     $user_data = $login->check_login($_SESSION['friendlance_userid']);
 
+    if(isset($_GET['id']) && is_numeric($_GET['id']))
+    {
+        $profile = new Profile();
+        $profile_data = $profile->get_profile($_GET['id']);
+    
+        if(is_array($profile_data))
+        {
+            $user_data = $profile_data[0];
+        }
+    }
+
+    
+    
+   
     //posting starts here
 
     if($_SERVER['REQUEST_METHOD'] == "POST")
@@ -33,14 +46,13 @@
     //collect posts
 
     $post = new Post();
-    $id = $_SESSION['friendlance_userid'];
+    $id = $user_data['userid'];
 
     $posts = $post->get_posts($id);
 
     //collect friends
 
     $user = new User();
-    $id = $_SESSION['friendlance_userid'];
 
     $friends = $user->get_friends($id);
 

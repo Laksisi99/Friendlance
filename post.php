@@ -24,7 +24,7 @@
         <div id="post-owner">
 
             <?php 
-                echo $ROW_USER['first_name'] . " " . $ROW_USER['last_name']; 
+                echo htmlspecialchars($ROW_USER['first_name'])  . " " . htmlspecialchars($ROW_USER['last_name']); 
 
                 if($ROW['is_profile_image'])
                 {
@@ -39,7 +39,7 @@
                 if($ROW['is_cover_image'])
                 {
                     $pronoun = "His";
-                    if($ROW_USER['gender'] == "Femaile")
+                    if($ROW_USER['gender'] == "Female")
                     {
                         $pronoun = "Her";
                     }
@@ -51,7 +51,7 @@
 
         </div>
 
-        <?php echo $ROW['post'] ?>
+        <?php echo htmlspecialchars($ROW['post'])  ?>
 
         <br><br>
 
