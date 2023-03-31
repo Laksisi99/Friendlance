@@ -20,21 +20,27 @@ class Login
         {
             $row = $result[0];
             
-            if($password == $row['password'])
+            if($this->secured_password($password) == $row['password'])
             {
                 //create session data
                 $_SESSION['friendlance_userid'] = $row['userid'];
             }else
             {
-                $this->error .= "Wrong Password<br>";
+                $this->error .= "Wrong Email or Password<br>";
             }
         }else
         {
-            $this->error .= "No such Email was found<br.";
+            $this->error .= "Wrong Email or Password<br>";
         } 
         
         return $this->error;
         
+    }
+
+    private function secured_password($text){
+
+        $text = hash("sha256", $text);
+        return $text;
     }
 
     public function check_login($id)

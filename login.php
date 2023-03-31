@@ -1,9 +1,27 @@
 <?php
 
+
 session_start();
 
     include("classes/connect.php");
     include("classes/login.php");
+
+    // //update existing passwords in database to encrypted passwords
+
+    // $DB = new Database();
+    // $sql = "select * from users ";
+    // $result = $DB->read($sql);
+
+    // foreach ($result as $row){
+    //     $id = $row['id'];
+    //     $password = hash("sha256", $row['password']) ;
+
+    //     $sql = "update users set password = '$password' where id = '$id'  limit 1";
+    //     $DB->save($sql);
+
+    // }
+
+    // die;
 
     $email = "";
     $password = "";
