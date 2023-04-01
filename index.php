@@ -46,7 +46,23 @@
 
                 <div id="friends-bar">
 
-                    <img id="pro-pic" src="images/friends.PNG"><br>
+                <?php
+
+                    $image = "images/user_male.png";
+
+                    if($user_data['gender'] == "Female")
+                    {
+                        $image = "images/user_female.png";
+                    }
+
+                    if(file_exists($user_data['profile_image']))
+                    {
+                        $image = $image_class->get_thumbnail_profile($user_data['profile_image']);
+                    }
+
+                ?>
+
+                    <img id="pro-pic" src="<?php echo $image ?>"><br>
                     <a href="profile.php" style="text-decoration: none;"><div id="profile-name" ><?php echo $user_data['first_name'] . "<br> " . $user_data['last_name'];?></div></a>
 
                 </div>

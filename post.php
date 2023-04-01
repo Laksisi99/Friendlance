@@ -75,7 +75,19 @@
 
 
             <span style="color: darkgreen; float:right;">
-                Edit . Delete
+
+                <a href="edit.php">
+
+                    Edit
+
+                </a> .
+
+                <a href="delete.php?id=<?php echo $ROW['postid']?>">
+
+                    Delete
+
+                </a> 
+
             </span>
             
     </div>
