@@ -5,16 +5,24 @@
     $login = new Login();
     $user_data = $login->check_login($_SESSION['friendlance_userid']);
 
+    $Post = new Post();
+
     $ERROR = "";
     if(isset($_GET['id'])){
 
-        $Post = new Post();
-        $row = $Post->get_single_post($_GET['id']);
+        $ROW = $Post->get_single_post($_GET['id']);
 
-        if(!$row){
+        if(!$ROW){
 
             $ERROR = "Sorry! No such thought was found!!!";
 
+        }else{
+
+            if($ROW['userid'] != $_SESSION['friendlance_userid']){
+               
+                $ERROR = "Sorry! You can not Delete this!!!";
+
+            }
         }
 
     }else{
@@ -23,6 +31,14 @@
 
     }
     
+    //if something was posted
+
+    if($_SERVER['REQUEST_METHOD'] == "POST"){
+
+        $Post->delete_post($_POST['postid']);
+        header("Location: profile.php");
+        die;
+    }
 
 
 ?>
@@ -60,15 +76,31 @@
 
                 <div id="posts-area">
 
-                    <h2>Delete Your Thought</h2>
                     <form method="post">
 
-                        Do you really want to delete your thought???
+                            <?php 
 
-                        <hr>
-                            <?php echo $row['post']; ?>
+                                if($ERROR != ""){
 
-                        <input id="post-button" type="submit" value="DELETE THOUGHT">
+                                    echo $ERROR;
+                                }else{
+
+                            
+                                    echo "Do you really want to delete your thought???<br><br>";
+
+                                    $user = new User();
+                                    $ROW_USER = $user->get_user($ROW['userid']);
+                                  
+                                    include("post_delete.php");
+
+                                    echo "<input type='hidden' name='postid' value='$ROW[postid]'>";
+                                    echo "<input id='post-button' type='submit' value='DELETE THOUGHT'>";
+
+                                }
+
+                            ?>
+
+                        
                         <br>
                     </form>
                     

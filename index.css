@@ -86,13 +86,13 @@
    width: 800px; 
    margin: auto;
    min-height: 400px;
-   display: flex;
 }
 
 #pro-pic-bg{
     background-color: gray;
     text-align: center;
     color: greenyellow;
+    display: flex;
 }
 
 #pro-pic{

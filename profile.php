@@ -79,10 +79,7 @@
     
     <?php include("header.php"); ?>
 
-    <!--profile cover page-->
-    <div id="profile-cover">
-
-        <div id="pro-pic-bg">
+    <div id="pro-pic-bg">
 
                 <?php
 
@@ -131,6 +128,10 @@
                 
         </div>
 
+    <!--profile cover page-->
+    <div id="profile-cover">
+
+        
         <!--below cover area-->
 
         <div id="profile-display">

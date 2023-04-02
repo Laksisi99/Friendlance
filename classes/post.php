@@ -123,6 +123,25 @@ class Post
 
     }
 
+    public function delete_post($postid)
+    {
+        
+        if(!is_numeric($postid)){
+
+            return false;
+
+        }
+        
+        $query = "delete from posts where postid = '$postid' limit 1";
+
+        $DB = new Database();
+        $DB->read($query);
+
+        
+        
+
+    }
+
     private function create_postid()
     {
         $length = rand(4,19);
