@@ -1,4 +1,4 @@
-<div id="post">
+<div id='post'>
 
     <div>
 
@@ -76,17 +76,28 @@
 
             <span style="color: darkgreen; float:right;">
 
-                <a href="edit.php">
+                <?php
 
-                    Edit
+                    $post = new Post();
+                    if($post -> is_my_post($ROW['postid'],$_SESSION['friendlance_userid'])){
 
-                </a> .
+                        echo "
+                    <a href='edit.php'>
 
-                <a href="delete.php?id=<?php echo $ROW['postid']?>">
+                        Edit
 
-                    Delete
+                    </a> .
 
-                </a> 
+                    <a href='delete.php?id= $ROW[postid]'>
+
+                        Delete
+
+                    </a> ";
+
+                    }
+
+                    
+                ?>
 
             </span>
             

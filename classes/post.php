@@ -135,10 +135,33 @@ class Post
         $query = "delete from posts where postid = '$postid' limit 1";
 
         $DB = new Database();
-        $DB->read($query);
+        $DB->save($query);   
 
+    }
+
+    public function is_my_post($postid,$friendlance_userid)
+    {
         
+        if(!is_numeric($postid)){
+
+            return false;
+
+        }
         
+        $query = "select * from posts where postid = '$postid' limit 1";
+
+        $DB = new Database();
+        $result = $DB->read($query);   
+
+        if(is_array($result)){
+
+            if($result[0]['userid'] == $friendlance_userid){
+                return true;
+            }
+
+        }
+
+        return false;
 
     }
 

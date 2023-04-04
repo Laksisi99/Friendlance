@@ -6,6 +6,8 @@
     $login = new Login();
     $user_data = $login->check_login($_SESSION['friendlance_userid']);
 
+    $USER = $user_data;
+
     if(isset($_GET['id']) && is_numeric($_GET['id']))
     {
         $profile = new Profile();
@@ -79,58 +81,62 @@
     
     <?php include("header.php"); ?>
 
-    <div id="pro-pic-bg">
-
-                <?php
-
-                    $image = "images/cover.jpeg";
-                    if(file_exists($user_data['cover_image']))
-                    {
-                        $image = $image_class->get_thumbnail_cover($user_data['cover_image']);
-                    }
-
-                ?>
-
-            <img src="<?php echo $image ?>" style="width: 100%;">
-
-            <span style="font-size: 12px;">
-
-                <?php
-
-                    $image = "images/user_male.png";
-
-                    if($user_data['gender'] == "Female")
-                    {
-                        $image = "images/user_female.png";
-                    }
-
-                    if(file_exists($user_data['profile_image']))
-                    {
-                        $image = $image_class->get_thumbnail_profile($user_data['profile_image']);
-                    }
-
-                ?>
-                <img id="pro-pic" src="<?php echo $image ?>"><br/>
-
-                <a style="text-decoration: none; color:aqua;" href="change_profile_image.php?change=profile_picture" >Change Profile Image </a> |
-                <a style="text-decoration: none; color:aqua;" href="change_profile_image.php?change=profile_cover" >Change Cover </a>
-
-            </span>
-
-            <br>
-                <div id="profile-name"><?php echo $user_data['first_name'] . " " . $user_data['last_name'];?></div>
-            <br>
-            <a href="index.php"><div id="menu-buttons">Timeline</div></a>
-            <div id="menu-buttons">About</div>
-            <div id="menu-buttons">Friends</div>
-            <div id="menu-buttons">Photos</div>
-            <div id="menu-buttons">Settings</div>
-                
-        </div>
-
     <!--profile cover page-->
     <div id="profile-cover">
 
+        <?php
+
+        $image = "images/cover.jpeg";
+        if(file_exists($user_data['cover_image']))
+        {
+            $image = $image_class->get_thumbnail_cover($user_data['cover_image']);
+        }
+
+        ?>
+
+        <img src="<?php echo $image ?>" style="width: 100%;">
+
+        <div id="pro-pic-bg">
+
+                <span style="font-size: 12px; text-align:center;">
+
+                    <?php
+
+                        $image = "images/user_male.png";
+
+                        if($user_data['gender'] == "Female")
+                        {
+                            $image = "images/user_female.png";
+                        }
+
+                        if(file_exists($user_data['profile_image']))
+                        {
+                            $image = $image_class->get_thumbnail_profile($user_data['profile_image']);
+                        }
+
+                    ?>
+                    <img id="pro-pic" src="<?php echo $image ?>"><br/>
+
+                    <a style="text-decoration: none; color:aqua;" href="change_profile_image.php?change=profile_picture" >Change Profile Image </a> |
+                    <a style="text-decoration: none; color:aqua;" href="change_profile_image.php?change=profile_cover" >Change Cover </a>
+
+                    <br>
+                        <div id="profile-name" ><?php echo $user_data['first_name'] . " " . $user_data['last_name'];?></div>
+                    <br>
+                    
+                    <a href="index.php"><div id="menu-buttons">Timeline</div></a>
+                    <div id="menu-buttons">About</div>
+                    <div id="menu-buttons">Friends</div>
+                    <div id="menu-buttons">Photos</div>
+                    <div id="menu-buttons">Settings</div>
+
+                </span>
+                
+
+                   
+               
+                
+            </div>
         
         <!--below cover area-->
 

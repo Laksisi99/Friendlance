@@ -3,10 +3,17 @@
 <?php
 
     $corner_image = "images/user_male.png";
-    if(isset($user_data))
-    {
-        $image_class = new Image();
-        $corner_image = $image_class->get_thumbnail_profile($user_data['profile_image']);
+    if(isset($USER)) {
+        if(file_exists($USER['profile_image']))
+        {
+            $image_class = new Image();
+            $corner_image = $image_class->get_thumbnail_profile($USER['profile_image']);
+        }else{
+
+            if($USER['gender'] == "Female"){
+                $corner_image = "images/user_female.png";
+            }
+        }
     }
 ?>
 
