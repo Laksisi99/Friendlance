@@ -66,7 +66,7 @@
         ?>
             
             <br/><br/>
-            <a href="">Like</a> . <a href="">Comment</a> . 
+            <a href="like.php?type=post&id=<?php echo $ROW['postid'] ?>">Like</a> . <a href="">Comment</a> . 
 
             <span style="color: darkgreen;">
                 <?php echo $ROW['date'] ?>
