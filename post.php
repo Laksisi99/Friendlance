@@ -66,7 +66,25 @@
         ?>
             
             <br/><br/>
-            <a href="like.php?type=post&id=<?php echo $ROW['postid'] ?>">Like</a> . <a href="">Comment</a> . 
+
+            <?php 
+                $likes = "";
+
+                $likes = ($ROW['likes'] > 0) ? "(" . $ROW['likes'] .")" : "";
+
+                // if($ROW['likes'] > 0){
+
+                //     $likes = $ROW['likes'];
+
+                // }else{
+
+                //     $likes = "";
+
+                // }
+
+            ?>
+
+            <a href="like.php?type=post&id=<?php echo $ROW['postid'] ?>">Like<?php echo $likes ?></a> . <a href="">Comment</a> . 
 
             <span style="color: darkgreen;">
                 <?php echo $ROW['date'] ?>

@@ -171,10 +171,7 @@ class Post
 
             $DB = new Database();
 
-            //increment post table
-            $sql = "update posts set likes = likes + 1 where postid = '$id' limit 1";
-            $DB->save($sql);
-
+            
             //save like details
 
             $sql = "select likes from likes where type = 'post' && contentid='$id' limit 1";
@@ -197,6 +194,25 @@ class Post
                     $sql = "update likes set likes = '$likes_string' where type = 'post' && contentid='$id' limit 1";
                     $DB->save($sql);
 
+                    //increment post table
+                    $sql = "update posts set likes = likes + 1 where postid = '$id' limit 1";
+                    $DB->save($sql);
+
+
+                }else{
+
+                    $key = array_search($friendlance_userid, $user_ids);
+                    unset($likes[$key]);
+
+                    $likes_string = json_encode($likes);
+                    $sql = "update likes set likes = '$likes_string' where type = 'post' && contentid='$id' limit 1";
+                    $DB->save($sql);
+
+                    //decrement post table
+                    $sql = "update posts set likes = likes - 1 where postid = '$id' limit 1";
+                    $DB->save($sql);
+
+
                 }
                 
 
@@ -210,6 +226,11 @@ class Post
                 $likes = json_encode($arr2);
                 $sql = "insert into likes (type,contentid,likes) values ('$type','$id','$likes')";
                 $DB->save($sql);
+
+                //increment post table
+                $sql = "update posts set likes = likes + 1 where postid = '$id' limit 1";
+                $DB->save($sql);
+
 
             }
 
