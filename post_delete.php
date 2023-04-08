@@ -10,6 +10,7 @@
                 $image = "images/user_female.png";
             }
 
+            $image_class = new Image();
             if(file_exists($ROW_USER['profile_image']))
             {
                 $image = $image_class->get_thumbnail_profile($ROW_USER['profile_image']);
