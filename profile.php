@@ -96,6 +96,8 @@
 
         <img src="<?php echo $image ?>" style="width: 100%;">
 
+       
+
         <div id="pro-pic-bg">
 
                 <span style="font-size: 12px; text-align:center;">
@@ -123,6 +125,23 @@
                     <br>
                         <div id="profile-name" ><?php echo $user_data['first_name'] . " " . $user_data['last_name'];?></div>
                     <br>
+
+                    <?php
+
+                        $likes = "";
+                        if($user_data['likes'] > 0){
+
+                            $likes = "(" . $user_data['likes'] . " Friends)";
+
+                        }
+
+
+                    ?>
+
+                    <br>
+                    <a href="like.php?type=user&id=<?php echo $user_data['userid'] ?>">
+                        <input id="post_button" type="button" value="Wanna be Friends? <?php echo $likes ?>" style= "margin-left:30px;background-color:black;color:yellow;min-width:50px;cursor:pointer;">
+                    </a>
                     
                     <a href="index.php"><div id="menu-buttons">Timeline</div></a>
                     <div id="menu-buttons">About</div>

@@ -82,6 +82,72 @@ class Post
 
     }
 
+
+    public function edit_post($data, $files)
+    {
+
+        if(!empty($data['post']) || !empty($files['file']['name'])) 
+        {
+
+            $postimage = "";
+            $has_image = 0;
+           
+            
+                if(!empty($files['file']['name']))
+                {
+                    
+
+                    $folder = "uploads/" . $userid . "/";
+
+                    //create folder
+                        if(!file_exists($folder))
+                        {
+                            mkdir($folder, 0777, true);
+                            file_put_contents($folder . "index.php" , "");
+                        }
+
+                        $image_class = new Image();
+
+                        $postimage = $folder . $image_class->generate_filename(15) . ".jpeg";
+                        move_uploaded_file($_FILES['file']['tmp_name'],  $postimage);
+
+                        $image_class->resize_image($postimage,$postimage,1000,1000);
+
+
+                        $has_image = 1;    
+                }
+        
+
+            $post = "";
+            if(isset($data['post']))
+            {
+                $post = addslashes($data['post']);
+            }
+
+            $postid = addslashes($data['postid']);
+            
+            if($has_image){
+
+                $query = "update posts set post = '$post', image = '$postimage' where postid = '$postid' limit 1";
+
+            }else{
+
+                $query = "update posts set post = '$post' where postid = '$postid' limit 1";
+
+            }
+
+            $DB = new Database();
+            $DB->save($query);
+
+        }else
+        {
+            $this->error .= "Please share your thoughts to post!<br>";
+        }
+
+        return $this->error;
+
+    }
+
     public function get_posts($id)
     {
         
@@ -189,14 +255,13 @@ class Post
 
     public function like_post($id,$type,$friendlance_userid){
 
-        if($type == "post"){
 
             $DB = new Database();
 
             
             //save like details
 
-            $sql = "select likes from likes where type = 'post' && contentid='$id' limit 1";
+            $sql = "select likes from likes where type = '$type' && contentid='$id' limit 1";
             $result = $DB->read($sql);
 
             if(is_array($result)){
@@ -213,11 +278,11 @@ class Post
                     $likes[] = $arr;
 
                     $likes_string = json_encode($likes);
-                    $sql = "update likes set likes = '$likes_string' where type = 'post' && contentid='$id' limit 1";
+                    $sql = "update likes set likes = '$likes_string' where type = '$type' && contentid='$id' limit 1";
                     $DB->save($sql);
 
                     //increment post table
-                    $sql = "update posts set likes = likes + 1 where postid = '$id' limit 1";
+                    $sql = "update {$type}s set likes = likes + 1 where {$type}id = '$id' limit 1";
                     $DB->save($sql);
 
 
@@ -227,11 +292,11 @@ class Post
                     unset($likes[$key]);
 
                     $likes_string = json_encode($likes);
-                    $sql = "update likes set likes = '$likes_string' where type = 'post' && contentid='$id' limit 1";
+                    $sql = "update likes set likes = '$likes_string' where type = '$type' && contentid='$id' limit 1";
                     $DB->save($sql);
 
                     //decrement post table
-                    $sql = "update posts set likes = likes - 1 where postid = '$id' limit 1";
+                    $sql = "update {$type}s set likes = likes - 1 where {$type}id = '$id' limit 1";
                     $DB->save($sql);
 
 
@@ -249,14 +314,14 @@ class Post
                 $sql = "insert into likes (type,contentid,likes) values ('$type','$id','$likes')";
                 $DB->save($sql);
 
-                //increment post table
-                $sql = "update posts set likes = likes + 1 where postid = '$id' limit 1";
+                //increment right table
+                $sql = "update {$type}s set likes = likes + 1 where {$type}id = '$id' limit 1";
                 $DB->save($sql);
 
 
             }
 
-        }
+        
 
     }
 

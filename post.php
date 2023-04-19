@@ -100,7 +100,7 @@
                     if($post -> is_my_post($ROW['postid'],$_SESSION['friendlance_userid'])){
 
                         echo "
-                    <a href='edit.php'>
+                    <a href='edit.php?id= $ROW[postid]'>
 
                         Edit
 
