@@ -123,7 +123,11 @@
                     <a style="text-decoration: none; color:aqua;" href="change_profile_image.php?change=profile_cover" >Change Cover </a>
 
                     <br>
-                        <div id="profile-name" ><?php echo $user_data['first_name'] . " " . $user_data['last_name'];?></div>
+                        <div id="profile-name" >
+                            <a href="profile.php?id=<?php echo $user_data['userid']?>">
+                            <?php echo $user_data['first_name'] . " " . $user_data['last_name'];?>
+                            </a>
+                        </div>
                     <br>
 
                     <?php
@@ -144,10 +148,11 @@
                     </a>
                     
                     <a href="index.php"><div id="menu-buttons">Timeline</div></a>
-                    <div id="menu-buttons">About</div>
-                    <div id="menu-buttons">Friends</div>
-                    <div id="menu-buttons">Photos</div>
-                    <div id="menu-buttons">Settings</div>
+                    <a href="profile.php?section=about&id=<?php echo $user_data['userid']?>"><div id="menu-buttons">About</div></a>
+                    <a href="profile.php?section=followers&id=<?php echo $user_data['userid']?>"><div id="menu-buttons">Followers</div></a>
+                    <a href="profile.php?section=following&id=<?php echo $user_data['userid']?>"><div id="menu-buttons">Following</div></a>
+                    <a href="profile.php?section=photos&id=<?php echo $user_data['userid']?>"><div id="menu-buttons">Photos</div></a>
+                    <a href="profile.php?section=settings"><div id="menu-buttons">Settings</div></a>
 
                 </span>
                 
@@ -159,74 +164,27 @@
         
         <!--below cover area-->
 
-        <div id="profile-display">
+        <?php
 
-            <!--friends area-->
-            <div id="pro-dis1"></div>
+            $section = "default";
+            if(isset($_GET['section'])){
 
-                <div id="friends-bar">
+                $section = $_GET['section'];
 
-                    Friends <br>
+            }
 
-                    <?php
+            if($section == "default"){
 
-            
-                        if($friends)
-                        {
-                            foreach($friends as $FRIEND_ROW)
-                            {
-                                
-                                include('user.php');
-                            }
-                        }   
+                include("profile_content_default.php");
+
+            }elseif($section == "photos"){
 
 
-                    ?>
+                include("profile_content_photos.php");
 
-                    
+            }
 
-                </div>
-            
-
-            <!--posts area-->
-            <div id="pro-dis2">
-
-                <div id="posts-area">
-                    <form method="post" enctype="multipart/form-data">
-                        <textarea name="post" placeholder="Write Your Thoughts"></textarea>
-                        <input type="file" name="file">
-                        <input id="post-button" type="submit" value="SHARE THOUGHTS">
-                        <br>
-                    </form>
-                </div>
-
-
-                <!--posts-->
-
-                <div id="post-bar">
-
-                    <?php
-
-            
-                        if($posts)
-                        {
-                            foreach($posts as $ROW)
-                            {
-                                $user = new User();
-                                $ROW_USER = $user->get_user($ROW['userid']);
-
-                                include('post.php');
-                            }
-                        }   
-                        
-
-                    ?>
-
-                </div>
-
-            </div>
-
-        </div>
+        ?>
         
 
     </div>
