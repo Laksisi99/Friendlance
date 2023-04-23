@@ -235,11 +235,11 @@ class Post
 
         $DB = new Database();
 
-        if($type == "post" && is_numeric($id)){
+        if(is_numeric($id)){
 
             //get like details
 
-            $sql = "select likes from likes where type = 'post' && contentid='$id' limit 1";
+            $sql = "select likes from likes where type = '$type' && contentid='$id' limit 1";
             $result = $DB->read($sql);
 
             if(is_array($result)){
