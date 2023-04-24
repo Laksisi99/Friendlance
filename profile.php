@@ -27,21 +27,31 @@
     if($_SERVER['REQUEST_METHOD'] == "POST")
     {
 
-        $post = new Post();
-        $id = $_SESSION['friendlance_userid'];
-        $result = $post->create_post($id, $_POST,$_FILES);
-        
-        if($result == "")
-        {
-            header("Location: profile.php");
-            die;
-        }else
-        {
-            echo "<div style='text-align:center;font: size 12px;color:white;background-color:grey;'>";
-            echo "<br>The following errors occured:<br><br>";
-            echo $result;
-            echo "</div>";
+        if(isset($_POST['first_name'])){
+
+            $settings_class = new Settings();
+            $settings_class->save_settings($_POST, $_SESSION['friendlance_userid']);
+
+        }else{
+
+            $post = new Post();
+            $id = $_SESSION['friendlance_userid'];
+            $result = $post->create_post($id, $_POST,$_FILES);
+            
+            if($result == "")
+            {
+                header("Location: profile.php");
+                die;
+            }else
+            {
+                echo "<div style='text-align:center;font: size 12px;color:white;background-color:grey;'>";
+                echo "<br>The following errors occured:<br><br>";
+                echo $result;
+                echo "</div>";
+            }
+            
         }
+        
 
     }
 
@@ -152,7 +162,14 @@
                     <a href="profile.php?section=followers&id=<?php echo $user_data['userid']?>"><div id="menu-buttons">Followers</div></a>
                     <a href="profile.php?section=following&id=<?php echo $user_data['userid']?>"><div id="menu-buttons">Following</div></a>
                     <a href="profile.php?section=photos&id=<?php echo $user_data['userid']?>"><div id="menu-buttons">Photos</div></a>
-                    <a href="profile.php?section=settings"><div id="menu-buttons">Settings</div></a>
+                    
+                    <?php
+                        if($user_data['userid'] == $_SESSION['friendlance_userid']){
+
+                            echo '<a href="profile.php?section=settings&id='. $user_data['userid'] ,'"><div id="menu-buttons">Settings</div></a>';
+
+                        }
+                    ?>
 
                 </span>
                 
@@ -186,6 +203,16 @@
 
 
                 include("profile_content_following.php");
+
+            }elseif($section == "about"){
+
+
+                include("profile_content_about.php");
+
+            }elseif($section == "settings"){
+
+
+                include("profile_content_settings.php");
 
             }elseif($section == "photos"){
 

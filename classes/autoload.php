@@ -8,3 +8,4 @@
     include("classes/post.php");
     include("classes/image.php");
     include("classes/profile.php");
+    include("classes/settings.php");

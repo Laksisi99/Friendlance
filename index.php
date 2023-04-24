@@ -160,6 +160,7 @@
                         $DB = new Database();
                         $user_class = new User();
                         $image_class = new Image();
+                        
 
                         $followers = $user_class->get_following($_SESSION['friendlance_userid'],"user");
 
