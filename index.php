@@ -33,7 +33,7 @@
         
         if($result == "")
         {
-            header("Location: profile.php");
+            header("Location: index.php");
             die;
         }else
         {
@@ -45,20 +45,7 @@
 
     }
 
-    //collect posts
-
-    $post = new Post();
-    $id = $user_data['userid'];
-
-    $posts = $post->get_posts($id);
-
-    //collect friends
-
-    $user = new User();
-
-    $friends = $user->get_friends($id);
-
-    $image_class = new Image();
+    
         
 
 
@@ -110,7 +97,13 @@
 
 
                     <br>
-                        <div id="profile-name" ><?php echo $user_data['first_name'] . " " . $user_data['last_name'];?></div>
+                        <div id="profile-name" >
+                            <a href="profile.php?id=<?php echo $user_data['userid']?>">
+
+                                <?php echo $user_data['first_name'] . " " . $user_data['last_name'];?>
+
+                            </a>
+                        </div>
                     <br>
 
                     <?php
@@ -164,6 +157,27 @@
 
                     <?php
 
+                        $DB = new Database();
+                        $user_class = new User();
+                        $image_class = new Image();
+
+                        $followers = $user_class->get_following($_SESSION['friendlance_userid'],"user");
+
+                        $follower_ids = false;
+                        if(is_array($followers)){
+
+                            $follower_ids = array_column($followers, "userid");
+                            $follower_ids = implode("','" , $follower_ids);
+
+                        }
+
+                        if($follower_ids){
+
+                            $myuserid = $_SESSION['friendlance_userid'];
+                            $sql = "select * from posts where userid = '$myuserid' || userid in('" .$follower_ids. "') order by id desc limit 30";
+                            $posts = $DB->read($sql);
+
+                        }
             
                         if($posts)
                         {
