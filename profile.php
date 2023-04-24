@@ -182,6 +182,11 @@
 
                 include("profile_content_followers.php");
 
+            }elseif($section == "following"){
+
+
+                include("profile_content_following.php");
+
             }elseif($section == "photos"){
 
 
