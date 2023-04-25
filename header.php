@@ -18,12 +18,15 @@
 ?>
 
 <div id="profile-bar">
+
+    <form method="get" action="search.php">
+
         <div id="profile-topic">
             
             <a href="index.php" style="color:greenyellow; text-decoration: none;">FRIENDLANCE🤞</a> 
             
-            &nbsp &nbsp<input type="text" id="search-box" placeholder="🔎Search for Friends">
-            
+                &nbsp &nbsp<input type="text" id="search-box" name="find" placeholder="🔎Search for Friends">
+
             <a href="profile.php">
                 <img src="<?php echo $corner_image ?>" style="width: 65px; float: right; border-radius: 50%;">
             </a>
@@ -33,4 +36,7 @@
             </a>
 
         </div>
-    </div>
+
+    </form>
+
+</div>
