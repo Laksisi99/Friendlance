@@ -5,16 +5,16 @@
 
                 <div id="friends-bar">
 
-                    Friends <br>
+                    Following <br>
 
                     <?php
 
             
                         if($friends)
                         {
-                            foreach($friends as $FRIEND_ROW)
+                            foreach($friends as $friend)
                             {
-                                
+                                $FRIEND_ROW = $user->get_user($friend['userid']);
                                 include('user.php');
                             }
                         }   

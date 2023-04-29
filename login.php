@@ -69,7 +69,9 @@ session_start();
     <div id="bar">
             <div>FRIENDLANCE 🤞</div>
             <div id="description">Land to connect with your friends</div> 
-            <div id="signup-button">Signup</div>       
+            <a href="signup.php">
+            <div id="signup-button">Signup</div> 
+            </a>      
     </div>
 
     <div id="signup-form">

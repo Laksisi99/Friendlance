@@ -21,16 +21,18 @@
 
     $Post = new Post();
 
-    $likes = false;
+    $ROW = false;
 
     $ERROR = "";
-    if(isset($_GET['id']) && isset($_GET['type'])){
+    if(isset($_GET['id'])){
 
-        $likes = $Post -> get_likes($_GET['id'],$_GET['type']); 
+    
+
+        $ROW = $Post->get_single_post($_GET['id']); 
 
     }else{
 
-        $ERROR = "Sorry! No infomation was found!!!";
+        $ERROR = "Sorry! No Image was found!!!";
 
     }
     
@@ -46,7 +48,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="index.css" rel="stylesheet"/>
-    <title>Friends who liked | FRIENDLANCE🤞</title>
+    <title>Single Thought | FRIENDLANCE🤞</title>
 </head>
 
 <body>
@@ -73,17 +75,14 @@
 
                 <?php
 
-                    $User = new User();
+                    $user = new User();
                     $image_class = new Image();
 
+                 
+                    if(is_array($ROW)){
 
-                    if(is_array($likes)){
-                        foreach($likes as $row){
+                       echo "<img src='$ROW[image]' style='width:100%;' />";
 
-                           $FRIEND_ROW = $User->get_user($row['userid']);
-                           include("user.php");
-
-                        }
                     }
 
                 ?>

@@ -71,14 +71,13 @@ class Signup
         $email = $data['email'];
         $password = $data['password'];
 
+        $password = hash("sha256" , $password);
+
         //create these
         $url_address = strtolower($first_name) . "." . strtolower($last_name);
         $userid = $this->create_userid();
 
-        $query = "insert into users 
-        (userid,first_name,last_name,gender,email,password,url_address) 
-        values 
-        ('$userid','$first_name','$last_name','$gender','$email','$password','$url_address')";
+        $query = "insert into users (userid,first_name,last_name,gender,email,password,url_address) values ('$userid','$first_name','$last_name','$gender','$email','$password','$url_address')";
         
 
         $DB = new Database();

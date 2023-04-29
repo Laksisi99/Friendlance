@@ -175,12 +175,12 @@
                         if($follower_ids){
 
                             $myuserid = $_SESSION['friendlance_userid'];
-                            $sql = "select * from posts where userid = '$myuserid' || userid in('" .$follower_ids. "') order by id desc limit 30";
+                            $sql = "select * from posts where parent = 0 and userid = '$myuserid' || userid in('" .$follower_ids. "') order by id desc limit 30";
                             $posts = $DB->read($sql);
 
                         }
             
-                        if($posts)
+                        if(isset($posts) && $posts)
                         {
                             foreach($posts as $ROW)
                             {

@@ -7,6 +7,8 @@
     $last_name = "";
     $gender = "";
     $email = "";
+    $password = "";
+
     
 
     if($_SERVER['REQUEST_METHOD'] == 'POST')
@@ -25,6 +27,7 @@
         }else
         {
             header("Location: login.php");
+           
             die;
         }
         
@@ -32,6 +35,8 @@
         $last_name = $_POST['last_name'];
         $gender = $_POST['gender'];
         $email = $_POST['email'];
+        $password = $_POST['password'];
+
 
     }
    
@@ -55,7 +60,9 @@
     <div id="bar">
             <div>FRIENDLANCE 🤞</div>
             <div id="description">Land to connect with your friends</div> 
-            <div id="signup-button">Login</div>       
+            <a href="login.php">
+            <div id="signup-button">Login</div>
+            </a>       
     </div>
 
     <div id="signup-form">

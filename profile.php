@@ -66,7 +66,7 @@
 
     $user = new User();
 
-    $friends = $user->get_friends($id);
+    $friends = $user->get_following($user_data['userid'], "user");
 
     $image_class = new Image();
         
